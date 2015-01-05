@@ -38,10 +38,10 @@ T* insertSort(T* array_begin, T* array_end, bool(*cmp) (T*,T*) = camp<T>)
 
 	while(it!=array_end)
 	{
-		for(T* it2=it+1;it2!=array_end;it2++)
+		for(T* it2=it+1;it2!=array_begin;it2++)
 		{
-			if(cmp(it,it2))
-				swap(it,it2);              
+			if(cmp(it2,it2-1))
+				swap(it2,it2-1);              
 		}
 		it++;
 	}
@@ -60,8 +60,17 @@ T* mergeSort(T* array_begin, T* array_end, bool(*cmp) (T*,T*) = camp<T>)
 template<typename T>
 T* bubbleSort(T* array_begin, T* array_end, bool(*cmp) (T*,T*) = camp<T>) 
 {
+	T* it = array_begin;
 
-
+	while(it!=array_end)
+	{
+		for(T* it2=it+1;it2!=array_end;it2++)
+		{
+			if(cmp(it,it2))
+				swap(it,it2);              
+		}
+		it++;
+	}
 }
 
 template<typename T>
