@@ -38,7 +38,7 @@ T* insertSort(T* array_begin, T* array_end, bool(*cmp) (T*,T*) = camp<T>)
 
 	while(it!=array_end)
 	{
-		for(T* it2=it+1;it2!=array_begin;it2++)
+		for(T* it2=it+1;it2!=array_begin;it2--)
 		{
 			if(cmp(it2,it2-1))
 				swap(it2,it2-1);              
@@ -89,8 +89,4 @@ T* heapSort(T* array_begin, T* array_end, bool(*cmp) (T*,T*) = camp<T>)
 
 
 }
-
-
-
-
 #endif
