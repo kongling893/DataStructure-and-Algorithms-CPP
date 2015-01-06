@@ -23,7 +23,7 @@ void swap(T *p1, T *p2)
 
 
 
-template<typename T>
+template<typename T>//Quick sort
 T* quickSort(T* array_begin, T* array_end, bool(*cmp) (T*,T*) = camp<T>) 
 {
 
@@ -36,7 +36,7 @@ T* insertSort(T* array_begin, T* array_end, bool(*cmp) (T*,T*) = camp<T>)
 {
 	T* it = array_begin;
 
-	while(it!=array_end)
+	while(it!=array_end-1)
 	{
 		for(T* it2=it+1;it2!=array_begin;it2--)
 		{
@@ -57,28 +57,53 @@ T* mergeSort(T* array_begin, T* array_end, bool(*cmp) (T*,T*) = camp<T>)
 }
 
 
-template<typename T>
+template<typename T> //Bubble sort
 T* bubbleSort(T* array_begin, T* array_end, bool(*cmp) (T*,T*) = camp<T>) 
 {
 	T* it = array_begin;
-
-	while(it!=array_end)
+	bool flag=true;
+	while(flag)
 	{
+		flag = false;
 		for(T* it2=it+1;it2!=array_end;it2++)
 		{
-			if(cmp(it,it2))
-				swap(it,it2);              
+			if(cmp(it2,it2-1))
+				{swap(it2,it2-1); flag =true;}              
 		}
-		it++;
 	}
 }
 
-template<typename T>
+template<typename T>//Selection sort 1
 T* selectSort(T* array_begin, T* array_end, bool(*cmp) (T*,T*) = camp<T>) 
 {
-
-
+	for(T* it = array_begin;it!=array_end;it++)
+	{
+		T* min = it;
+		for(T* it2 = it+1;it2!=array_end;it2++)
+		{
+			if(cmp(it2,min)) min = it2;
+		}
+		if(min!=it) swap(it,min);
+	}
 }
+
+template<typename T>//Selection sort 2: find the minimum and maximum number at the same time
+T* selectSort2(T* array_begin, T* array_end, bool(*cmp) (T*,T*) = camp<T>) 
+{
+	for(T* it = array_begin;it!=(array_begin+array_end)/2+2;it++)
+	{
+		T* min = it;
+                T* max = it;
+		for(T* it2 = it+1;it2!=array_end-(it-array_begin);it2++)
+		{
+			if(cmp(it2,min)) min = it2;
+                        if(cmp(max,it2)) max = it2;
+		}
+		if(min!=it) swap(it,min);
+                if(max!=(array_end-(it-array_begin)-1)) swap((array_end-(it-array_begin)+1),max);
+	}
+}
+
 
 
 
