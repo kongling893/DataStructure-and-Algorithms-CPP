@@ -22,7 +22,7 @@ void swap(T *p1, T *p2)
 }
 
 
-
+/*-----------------quick sort-------------------------*/
 template<typename T>//Quick sort
 T* quickSort(T* array_begin, T* array_end, bool(*cmp) (T,T) = camp<T>) 
 {
@@ -30,7 +30,7 @@ T* quickSort(T* array_begin, T* array_end, bool(*cmp) (T,T) = camp<T>)
 
 }
 
-
+/*-----------------simple insertion sort-------------------------*/
 template<typename T> //insertion sort algorithm
 T* insertSort(T* array_begin, T* array_end, bool(*cmp) (T,T) = camp<T>) 
 {
@@ -47,28 +47,34 @@ T* insertSort(T* array_begin, T* array_end, bool(*cmp) (T,T) = camp<T>)
 	}
 }
 
+/*-----------------shell sort-------------------------*/
+template<typename T> //part of shell sort
+T* shellInsertSort(T* array_begin, T* array_end, int dk, bool(*cmp) (T,T) = camp<T>) 
+{
+	for(int i = 0;i<dk;i++){	
+		for(T* it = array_begin+i;it<=array_end-1;it=it+dk)
+		{
+			for(T* it2=it+dk;it2>=array_begin;it2=it2-dk)
+			{
+				if(cmp(*it2,*(it2-dk)))
+					swap(it2,it2-dk);              
+			}
+		}
+	}
+}
+
 template<typename T> //shell sort 
 T* shellSort(T* array_begin, T* array_end, bool(*cmp) (T,T) = camp<T>) 
 {
 	size_t n = static_cast<size_t> (array_end - array_begin);
 	int dk = n/2;  
     while( dk >= 1){  
-        for(T* it = array_begin+ dk; it!=array_end-1; it++){  
-        if(cmp(*it, *(it-dk))){         
-            T* j = it-dk;     
-            T x = *it;            
-            *it = *(it-dk);          
-            while(cmp(x, *j)){     
-                *(j+dk) = *j;  
-                j -= dk;            
-            }  
-            *(j+dk) = x;        
-        }  
-    	}  
+        shellInsertSort(array_begin,array_end,dk);
         dk = dk/2;  
     }  
 }
 
+/*-----------------merge sort-------------------------*/
 template<typename T>
 T* mergeSort(T* array_begin, T* array_end, bool(*cmp) (T,T) = camp<T>) 
 {
